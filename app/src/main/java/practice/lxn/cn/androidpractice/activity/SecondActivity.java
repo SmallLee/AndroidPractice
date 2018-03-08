@@ -1,13 +1,13 @@
 package practice.lxn.cn.androidpractice.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
 import java.lang.ref.WeakReference;
-
 import practice.lxn.cn.androidpractice.R;
 
 
@@ -19,6 +19,14 @@ public class SecondActivity extends Activity {
         setContentView(R.layout.activity_second);
         CustomHandler handler = new CustomHandler(this);
         handler.sendEmptyMessage(0);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(SecondActivity.this,ThirdActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        },3000);
     }
 
     static class CustomHandler extends Handler {
