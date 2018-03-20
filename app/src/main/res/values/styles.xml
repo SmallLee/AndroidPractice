@@ -7,5 +7,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="WindowIsTranslucent">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+    <declare-styleable name="WaveView">
+        <attr name="waveColor" format="reference|color"/>
+        <attr name="waveCount" format="integer"/>
+        <attr name="waveCenterIcon" format="reference"/>
+    </declare-styleable>
 </resources>

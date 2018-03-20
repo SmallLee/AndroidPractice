@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="practice.lxn.cn.androidpractice.activity.OrderActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_tab_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@android:color/holo_blue_bright"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        >
+    </LinearLayout>
+</FrameLayout>

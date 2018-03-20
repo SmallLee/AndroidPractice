@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>WebView和Js交互</title>
+        <script type="text/javascript">
+            function updateHtml(){
+                document.getElementById("content").innerHTML = "android调用了js的update方法";
+                return "success";
+            }
+            function callAndroid(){
+                document.location = "edj://webview?age=1&name=lxn";
+            }
+        </script>
+    </head>
+    <body>
+        <a onClick="callAndroid()" href="#">调用android方法</a><br/>
+        <span id="content"></span>
+    </body>
+</html>
