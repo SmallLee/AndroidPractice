@@ -8,21 +8,28 @@
         android:id="@+id/ll_left"
         android:layout_width="120dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="-120dp"
-        android:layout_marginStart="-120dp"
         android:background="#44eedd"
         android:gravity="center"
+        android:layout_marginLeft="-120dp"
+        android:layout_marginStart="-120dp"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_menu_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="菜单一" />
+            android:text="菜单一"
+            android:textSize="14sp"
+            />
 
         <TextView
+            android:id="@+id/tv_menu_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="菜单二" />
+            android:text="菜单二"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            />
     </LinearLayout>
 
     <Button

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class TimeUtil {
 
@@ -378,5 +379,12 @@ public class TimeUtil {
 
         }
         return value;
+    }
+
+    public static String getHHmm(long mills){
+
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm", Locale.getDefault());
+
+        return df.format(new Date(mills));
     }
 }

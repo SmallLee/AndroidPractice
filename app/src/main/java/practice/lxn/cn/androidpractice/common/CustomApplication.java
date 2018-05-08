@@ -5,11 +5,28 @@ import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.res.Configuration;
 
+import com.baidu.mapapi.SDKInitializer;
+
 /**
  *
  */
 
 public class CustomApplication extends Application {
+    private static CustomApplication instance;
+//    @SuppressLint("HandlerLeak")
+//    public static Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            switch (msg.what) {
+//                default:
+//                    break;
+//            }
+//        }
+//    };
+//
+//    public void runOnMainThread(Runnable runnable) {
+//        handler.post(runnable);
+//    }
 
     public CustomApplication(){
         System.out.println("==========CustomApplication");
@@ -21,11 +38,18 @@ public class CustomApplication extends Application {
         System.out.println("==========attachBaseContext");
     }
 
+    public static CustomApplication getInstance(){
+        return instance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
+        SDKInitializer.initialize(this);
         System.out.println("==========onCreate");
         AppForgroundHelper helper = new AppForgroundHelper();
+
         helper.register(this, new AppForgroundHelper.OnAppStatusChangedListener() {
             @Override
             public void onForeground() {

@@ -1,0 +1,76 @@
+一.注释
+单行注释 //
+多行注释 Ctrl + Shift + / (取消注释再按一次)
+方法注释 /** 回车
+
+异常方法注释 (throws 异常名称 异常描述)
+/**
+ * @throws IndexOutOfBoundsException 索引越界异常
+ */
+
+类注释:File-Settings-File and Code Templates-Include-File Header
+/**
+ * 描述：                                //类的描述
+ * @author Create by zxy on 2018/5/7    //作者
+ * @deprecated                          //是否废弃
+ * @see CustomButton                    //参考的链接
+ * @since 1.1                           //从哪个版本开始出现
+ */
+
+Activity注释:File-Settings-Live Templates--加号-Live Templates
+/**
+ *  描述：
+ *  @author Create by 李小牛 on $date$
+ */
+
+ 二.编码
+ 源文件编码都采用UTF-8
+ File-Settings-Editor-File Encodings
+
+ 设置Gradle编译时使用的默认编码
+ android {
+  ......
+     compileOptions {
+     encoding "GBK"
+     }
+ }
+
+ 三.源文件结构
+ package语句(不换行)
+ import语句(不换行，不要使用通配符)
+ 一个顶级类(只有一个)以上每个部分之间用一个空行隔开
+ 类似下面：
+ package practice.lxn.cn.testapp;
+
+ import android.os.Bundle;
+ import android.support.v7.app.AppCompatActivity;
+
+ public class MainActivity extends AppCompatActivity {
+
+ }
+
+四.类成员
+
+    /*常量*/ (按照使用先后顺序)
+    /*UI控件*/(按照布局文件中顺序)
+    /*普通成员变量*/(按照使用先后顺序)
+    /*内部接口*/
+    /*初始化方法*/
+    /*事件响应方法*/
+    /*普通逻辑方法*/ (方法按照调用顺序在给自区块排列)
+    /*重载的逻辑方法*/ (重载的方法放到一起)
+    /*生命周期方法(除去onCreate)*/
+    /*内部类*/
+
+五.格式术语
+大括号：即使只有一条语句，大括号也要写，大括号前后要有空格，左大括号后换行
+没内容:void doNotiong(){};
+
+块缩进：4个空格(默认缩进)
+
+列限制：一行80到100个字符
+设置行宽提示:File-Settings-Editor-Code Style-右侧Hard wrap at(默认100)
+
+
+
+

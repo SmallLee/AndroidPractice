@@ -16,11 +16,11 @@ public class Util {
      * @return 保留指定小数位后的数字
      */
     public static double getFormatNumber(double number, int digit) {
-        Double value = number;
-        if (value.intValue() == number) {
-            int result = value.intValue();
-            return result;
-        }
+//        Double value = number;
+//        if (value.intValue() == number) {
+//            int result = value.intValue();
+//            return result;
+//        }
         if (mDecimalFormat == null) {
             mDecimalFormat = new DecimalFormat();
         }

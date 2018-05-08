@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidPractice</string>
+    <string name="arrive_time">在%1$d&#058;%2$s到达</string>
 </resources>

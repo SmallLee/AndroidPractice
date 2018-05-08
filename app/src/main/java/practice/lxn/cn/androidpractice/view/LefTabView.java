@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import practice.lxn.cn.androidpractice.R;
 
@@ -16,7 +17,14 @@ import practice.lxn.cn.androidpractice.R;
  */
 
 public class LefTabView extends LinearLayout implements View.OnClickListener {
+    public OnSubmitOrderListener mListener;
+    public interface OnSubmitOrderListener{
+        void onSubmitOrderItemClick(int position);
+    }
 
+    public void setOnSubmitOrderItemClick(OnSubmitOrderListener listener){
+        this.mListener = listener;
+    }
     private ValueAnimator showAnim;
     private ValueAnimator hideAnim;
     private LinearLayout linearLayout;
@@ -34,8 +42,12 @@ public class LefTabView extends LinearLayout implements View.OnClickListener {
     public void initLeftTabView(Context context){
         View leftTabLayout = View.inflate(context, R.layout.left_tab_layout2, null);
         final Button btn = leftTabLayout.findViewById(R.id.btn);
+        TextView tvMenuOne = leftTabLayout.findViewById(R.id.tv_menu_one);
+        TextView tvMenuTwo = leftTabLayout.findViewById(R.id.tv_menu_two);
         linearLayout = leftTabLayout.findViewById(R.id.ll_left);
         btn.setOnClickListener(this);
+        tvMenuOne.setOnClickListener(this);
+        tvMenuTwo.setOnClickListener(this);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
         addView(leftTabLayout,params);
         showAnim = ValueAnimator.ofInt(-360, 0);
@@ -44,7 +56,18 @@ public class LefTabView extends LinearLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        doAnimation();
+        switch (v.getId()) {
+            case R.id.btn:
+                doAnimation();
+                break;
+            case R.id.tv_menu_one:
+                mListener.onSubmitOrderItemClick(0);
+                break;
+            case R.id.tv_menu_two:
+                mListener.onSubmitOrderItemClick(1);
+                break;
+        }
+
     }
     public void doAnimation(){
         if (!mIsMenuOpen) {
@@ -67,5 +90,11 @@ public class LefTabView extends LinearLayout implements View.OnClickListener {
         });
         animator.setDuration(200);
         animator.start();
+    }
+
+    public void setMarginBottom(int bottomMargin) {
+        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.bottomMargin = bottomMargin;
+        setLayoutParams(params);
     }
 }
