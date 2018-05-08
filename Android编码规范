@@ -71,6 +71,199 @@ Activity注释:File-Settings-Live Templates--加号-Live Templates
 列限制：一行80到100个字符
 设置行宽提示:File-Settings-Editor-Code Style-右侧Hard wrap at(默认100)
 
+垂直空行：(建议只有一个空行)
+package，import，顶级类直接各有一个空行
+类中每个方法之间
+
+水平空行：
+保留字和它左右的大括号
+    if (flag) {
+
+    }
+
+    try {
+
+    } catch(Exception e){
+
+    }
+语句的单行注释前后要有空格
+private int num = 0; // num注释
+
+结构：
+枚举(之间用逗号分割，建议换行)
+public enum  Status {
+    ONE,
+    TWO,
+    THREE
+}
+每次声明一个变量
+private int a,b; // 不建议
+
+局部变量在声明时最好就进行初始化，
+减少不必要的成员变量(主要是为了代码简洁)
+数组声明
+String[] args而不是String args[]
+
+switch语句：
+ public void test(int a){
+        switch (a) {
+            case 1:
+                break;
+            case 2:
+                break;
+            default:        //要加上
+        }
+    }
+
+六.命名规范
+包名，全部小写，不使用下划线，采用反域名命名规则，com(cn).xx(公司名或者个人).xx(应用名)
+包中包含的模块
+com.xx.activity // 存放Activity
+com.xx.service // 存放Service
+com.xx.receiver // 存放BroadcastReceiver
+com.xx.adapter // 存放adapter
+com.xx.base // 存放基类
+com.xx.util // 存放工具类
+com.xx.view // 存放自定义View
+com.xx.db // 存放数据库操作类
+
+类名：
+采用大驼峰命名(每个单词第一个字母大写)，避免缩写
+Activity类 HomeActivity,LoginActivity
+Adapter类，ListAdapter
+工具方法类，Util或者Manager为后缀， StringUtil,LogUtil,ThreadPoolManager
+数据库类，以DBHelper为后缀，CityDBHelper
+Service以Service为后缀，DownloadService
+BroadcastReceiver以Receiver为后缀，ScreenReceiver
+ContentProvier以Provier为后缀
+实体类以Entity结尾，UserInfoEntity
+
+方法名：(通常是动词)
+小驼峰命名
+initXX() // 初始化相关方法，以init为前缀，initView()初始化控件
+isXX(),checkXX()方法返回值为boolean型的请使用is或check为前缀标识
+    public boolean isSQAnycallOrder() {
+        return !TextUtils.isEmpty(actionUrl) && actionUrl.equals("edaijia://99");
+    }
+getXX() 返回某个值的方法，使用get为前缀标识
+    public int getAge() {
+        return age;
+    }
+handleXX() 对数据进行处理的方法，尽量使用handle为前缀标识
+displayXX()/showXX() 弹出提示框和提示信息，使用display/show为前缀标识
+saveXX() 与保存数据相关的，使用save为前缀标识
+resetXX() 对数据重组的，使用reset前缀标识
+clearXX() 清除数据相关的
+removeXXX() 清除数据相关的
+drawXXX() 绘制数据或效果相关的，使用draw前缀标识
+
+常量命名：
+全部字母大写，用下划线分隔单词
+public static final int CHANNEL_LIMITED_ONLY_APP = 4;
+
+非常量字段名：
+private int mAge; // 非公有，静态,以m开头
+int mSex;
+private static String sName; // 静态以s开头
+public int pAddress; // 公有非静态以p开头
+public static int gSize;//公有静态成员
+
+用统一的量词通过在结尾处放置一个量词，就可创建更加统一的变量，它们更容易理解，也更容易搜索。
+例如，请使用 mCustomerStrFirst 和 mCustomerStrLast，而不要使用mFirstCustomerStr和mLastCustomerStr。
+
+量词列表：量词后缀说明
+First 一组变量中的第一个
+Last 一组变量中的最后一个
+Next 一组变量中的下一个变量
+Prev 一组变量中的上一个
+Cur 一组变量中的当前变量。
+
+集合添加如下后缀：List、Map、Set
+   private List<String> sNameList = new ArrayList();
+数组添加如下后缀：Arr
+    private String[] sAgeArr = {"1","2"};
+
+6.1资源文件命名(全部小写，采用下划线命名)
+Activity或者Fragment : activity_home,activity_login,fragment_news,fragment_setting
+Dialog:     dialog_call_phone
+PopupWindow:  ppw_show_guide
+列表项： item_city
+
+资源命名
+
+用途_模块名_逻辑名称
+用途_模块名_颜色
+用途_逻辑名称
+用途_颜色
+
+按钮： btn_main_home
+图标： ic_next
+分隔线：divider_white
+背景： bg_blue
+
+动画文件：(全部小写，采用下划线命名法)
+具体动画
+模块名_逻辑名称
+逻辑名称
+refresh_progress.xml
+market_cart_add.xml
+market_cart_remove.xml
+普通视图动画：
+fade_in 淡入
+fade_out 淡出
+push_down_in 从下方推入
+push_down_out 从下方推出
+push_left 推向左方
+slide_in_from_top 从头部滑动进入
+zoom_enter 变形进入
+slide_in 滑动进入
+shrink_to_middle 中间缩小
+
+values中name命名
+strings 采用下划线命名，规则如下：
+模块名_逻辑名称
+main_menu_about 主菜单文字
+friend_title 好友模块标题
+dialog_title : 弹框标题
+button_ok: 确认按钮
+
+colors采用下划线，模块名+逻辑名称颜色：
+friend_info_bg
+friend_bg
+
+styles采用下划线
+main_tabBottom
+
+layout中的id
+控件缩写_作用
+tv_username
+
+编程实战
+捕获的异常：不能忽视(catch中一般要进行处理，打印日志，如果真的不需要处理，添加注释)
+
+try {
+    int i = Integer.parseInt(response);
+    return handleNumericResponse();
+} catch (NumberFormatException ok) {
+    // it's not numeric; that's fine, just continue
+}
+return handleTextResponse(response);
+
+静态成员使用类调用
+
+JavaDoc:分为单行和多行
+单行：/** test Method */
+多行：
+ /**
+  * test method
+  * method test
+  */
+当整个JavaDoc能容纳一行并且没有标记@时，可以替换为单行
+
+
+
+
+
 
 
 
