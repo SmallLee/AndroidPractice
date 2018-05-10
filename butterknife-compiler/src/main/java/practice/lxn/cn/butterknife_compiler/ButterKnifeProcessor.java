@@ -1,0 +1,165 @@
+package practice.lxn.cn.butterknife_compiler;
+
+import com.google.auto.service.AutoService;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.Filer;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.Processor;
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.PackageElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Elements;
+import javax.tools.JavaFileObject;
+
+import practice.lxn.cn.butterknife_annotation.BindView;
+
+/**
+ * 描述：相当于一个监视者，监控源文件中的注解
+ *
+ * @author Create by zxy on 2018/5/10
+ */
+
+@AutoService(Processor.class) // 注册注解处理器
+public class ButterKnifeProcessor extends AbstractProcessor {
+    //写文件的对象
+    private Filer mFiler;
+    private Elements mElementUtils;
+
+
+    @Override
+    public synchronized void init(ProcessingEnvironment processingEnv) {
+        super.init(processingEnv);
+        mElementUtils = processingEnv.getElementUtils();
+        mFiler = processingEnv.getFiler();
+    }
+
+    /**
+     * 注解处理器支持的Java版本
+     */
+    @Override
+    public SourceVersion getSupportedSourceVersion() {
+        return SourceVersion.latestSupported();
+    }
+
+    /**
+     * 注解处理器支持的注解名称
+     */
+    @Override
+    public Set<String> getSupportedAnnotationTypes() {
+        Set<String> annotationTypes = new HashSet<>();
+        annotationTypes.add(BindView.class.getCanonicalName());
+        return annotationTypes;
+    }
+
+    /**
+     * @param roundEnv
+     *
+     * package practice.lxn.cn.androidpractice.pojo; // PackageElement
+     *   public class Book implements Parcelable{ // TypeElement
+     *      private int bookId; // VariableElement
+     *      private String bookName; // VariableElement
+     *      public int getBookId() { // ExecutableElement
+     *          return bookId;
+     *      }
+     */
+    @Override
+    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        // 获取所有包含BindView注解的元素
+        Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(BindView.class);
+        // 需要对不同Activity中的注解进行分类，因为Set集合中包含了所有Activity中的注解
+        Map<String,List<VariableElement>> activityElementMap = new HashMap<>();
+        for (Element element : elements) {
+            VariableElement variableElement = (VariableElement) element;
+            //获取当前元素对应的Activity名称
+            String activityName = getActivityName(variableElement);
+            List<VariableElement> elementList = activityElementMap.get(activityName);
+            if (elementList == null) {
+                elementList = new ArrayList<>();
+                //将Activity名称和它对应的元素集合存放到一起
+                activityElementMap.put(activityName,elementList);
+            }
+            elementList.add(variableElement);
+        }
+
+        // 开始产生Java文件
+        for (String activityName : activityElementMap.keySet()) {
+            // 获取Activity对应的带注解的成员
+            List<VariableElement> elementList = activityElementMap.get(activityName);
+            // 获取包名
+            String packageName = getPackageName(elementList.get(0));
+            // 获取最后生成的文件的名称package practice.lxn.cn.testapp.MainActivity_ViewBinder;
+            String viewBinderName = activityName + "_ViewBinder";
+            /* 需要生成文件的格式
+            package practice.lxn.cn.testapp;
+            import practice.lxn.cn.testapp.ViewBinder
+            public class MainActivity_ViewBinder implements ViewBinder<MainActivity> {
+                @Override
+                public void bind(MainActivity target) {
+                    target.btn = (Button)target.findViewById(1231123423432);
+                }
+            }*/
+            Writer writer;
+            //MainActivity_ViewBinder
+            String simpleName = elementList.get(0).getEnclosingElement().getSimpleName().toString() + "_ViewBinder";
+            try {
+                JavaFileObject javaFileObject = mFiler.createSourceFile(viewBinderName);
+                writer = javaFileObject.openWriter();
+                writer.write("package " + packageName +";");
+                writer.write("\n");
+                writer.write("import " + packageName + ".ViewBinder;");
+                writer.write("\n");
+                writer.write("public class " + simpleName + " implements ViewBinder<" + activityName + "> {");
+                writer.write("\n");
+                writer.write("public void bind(" + activityName + " target) {");
+                writer.write("\n");
+                for (VariableElement element : elementList) {
+                    String variableName = element.getSimpleName().toString();
+                    TypeMirror typeMirror = element.asType();
+                    int id = element.getAnnotation(BindView.class).value();
+                    writer.write("target." + variableName + " = (" + typeMirror + ")target.findViewById(" + id + ");");
+                    writer.write("\n");
+                    writer.write("}");
+                    writer.write("\n");
+                    writer.write("}");
+                    writer.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 获取包名
+     */
+    private String getPackageName(VariableElement variableElement) {
+        TypeElement typeElement = (TypeElement) variableElement.getEnclosingElement();
+        PackageElement packageElement = mElementUtils.getPackageOf(typeElement);
+        return packageElement.getQualifiedName().toString();
+    }
+
+    /**
+     * 获取Activity名称
+     */
+    private String getActivityName(VariableElement variableElement) {
+        TypeElement typeElement = (TypeElement) variableElement.getEnclosingElement();
+        String packageName = getPackageName(variableElement);
+        // package practice.lxn.cn.testapp.MainActivity
+        return packageName + "." + typeElement.getSimpleName().toString();
+    }
+}
