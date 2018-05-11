@@ -1,9 +1,13 @@
 package practice.lxn.cn.butterknife_compiler;
 
 import com.google.auto.service.AutoService;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -18,14 +22,15 @@ import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
-import javax.tools.JavaFileObject;
 
 import practice.lxn.cn.butterknife_annotation.BindView;
+import practice.lxn.cn.butterknife_annotation.ViewBinder;
 
 /**
  * 描述：相当于一个监视者，监控源文件中的注解
@@ -112,10 +117,12 @@ public class ButterKnifeProcessor extends AbstractProcessor {
                     target.btn = (Button)target.findViewById(1231123423432);
                 }
             }*/
-            Writer writer;
+            //===========================================================================
+           /* Writer writer;
             //MainActivity_ViewBinder
             String simpleName = elementList.get(0).getEnclosingElement().getSimpleName().toString() + "_ViewBinder";
             try {
+                // 方式一：通过原生的JavaFileObject拼接
                 JavaFileObject javaFileObject = mFiler.createSourceFile(viewBinderName);
                 writer = javaFileObject.openWriter();
                 writer.write("package " + packageName +";");
@@ -137,6 +144,39 @@ public class ButterKnifeProcessor extends AbstractProcessor {
                     writer.write("}");
                     writer.close();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*/
+            //方式二：通过JavaPoet提供的API
+              /* 需要生成文件的格式
+            package practice.lxn.cn.testapp;
+            import practice.lxn.cn.testapp.ViewBinder
+            public class MainActivity_ViewBinder implements ViewBinder<MainActivity> {
+                @Override
+                public void bind(MainActivity target) {
+                    target.btn = (Button)target.findViewById(1231123423432);
+                }
+            }*/
+            String simpleName = elementList.get(0).getEnclosingElement().getSimpleName().toString();
+            TypeSpec.Builder typeBuilder = TypeSpec.classBuilder("MainActivity_ViewBinder")
+                    .addModifiers(Modifier.PUBLIC)
+                    .addSuperinterface(ParameterizedTypeName.get(ViewBinder.class, activityName.getClass()));
+            MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("bind")
+                    .addModifiers(Modifier.PUBLIC)
+                    .addParameter(simpleName+".class","target")
+                    .returns(TypeName.VOID);
+            for (VariableElement element : elementList) {
+                String variableName = element.getSimpleName().toString();
+                TypeMirror typeMirror = element.asType();
+                int id = element.getAnnotation(BindView.class).value();
+                methodBuilder.addStatement("target." + variableName +"= (" + typeMirror + ")" + "target.findViewById(" + id + ");");
+            }
+            MethodSpec bind = methodBuilder.build();
+            TypeSpec MainActivity_ViewBinder = typeBuilder.addMethod(bind).build();
+            JavaFile javaFile = JavaFile.builder(packageName,MainActivity_ViewBinder)
+                    .build();
+            try {
+                javaFile.writeTo(mFiler);
             } catch (IOException e) {
                 e.printStackTrace();
             }
