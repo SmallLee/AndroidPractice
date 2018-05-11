@@ -2,6 +2,8 @@ package practice.lxn.cn.testapp;
 
 import android.app.Activity;
 
+import practice.lxn.cn.butterknife_annotation.ViewBinder;
+
 /**
  * 描述：
  *

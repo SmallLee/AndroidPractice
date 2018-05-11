@@ -1,4 +1,4 @@
-package practice.lxn.cn.testapp;
+package practice.lxn.cn.butterknife_annotation;
 
 /**
  * 描述：
