@@ -1,11 +1,13 @@
 package practice.lxn.cn.butterknife_compiler;
 
 import com.google.auto.service.AutoService;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.TypeVariableName;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -107,7 +109,7 @@ public class ButterKnifeProcessor extends AbstractProcessor {
             // 获取包名
             String packageName = getPackageName(elementList.get(0));
             // 获取最后生成的文件的名称package practice.lxn.cn.testapp.MainActivity_ViewBinder;
-            String viewBinderName = activityName + "_ViewBinder";
+//            String viewBinderName = activityName + "_ViewBinder";
             /* 需要生成文件的格式
             package practice.lxn.cn.testapp;
             import practice.lxn.cn.testapp.ViewBinder
@@ -158,12 +160,14 @@ public class ButterKnifeProcessor extends AbstractProcessor {
                 }
             }*/
             String simpleName = elementList.get(0).getEnclosingElement().getSimpleName().toString();
-            TypeSpec.Builder typeBuilder = TypeSpec.classBuilder("MainActivity_ViewBinder")
+            ClassName viewBinderName = ClassName.get(ViewBinder.class.getPackage().getName(), ViewBinder.class.getSimpleName());
+            ClassName activityClassName = ClassName.bestGuess(simpleName);
+            TypeSpec.Builder typeBuilder = TypeSpec.classBuilder(activityClassName + "_ViewBinder")
                     .addModifiers(Modifier.PUBLIC)
-                    .addSuperinterface(ParameterizedTypeName.get(ViewBinder.class, activityName.getClass()));
+                    .addSuperinterface(ParameterizedTypeName.get(viewBinderName,activityClassName));
             MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("bind")
                     .addModifiers(Modifier.PUBLIC)
-                    .addParameter(simpleName+".class","target")
+                    .addParameter(TypeVariableName.get(activityName),"target")
                     .returns(TypeName.VOID);
             for (VariableElement element : elementList) {
                 String variableName = element.getSimpleName().toString();
