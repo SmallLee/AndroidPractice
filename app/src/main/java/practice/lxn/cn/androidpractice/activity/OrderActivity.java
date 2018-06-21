@@ -1,5 +1,9 @@
 package practice.lxn.cn.androidpractice.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -43,6 +47,18 @@ public class OrderActivity extends AppCompatActivity {
             lp.weight = 1;
             itemView.setLayoutParams(lp);
             llTabContainer.addView(itemView);
+        }
+    }
+
+    public void testAlarmManager() {
+        // 第一步，构造一个PendingIntent
+        Intent intent = new Intent("ACTION_CLOCK");
+        intent.putExtra("msg","该起床了");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        // 第二步，获取并设置AlarmManager
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60000, pendingIntent);
         }
     }
 }

@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/butterknife-annotation/butterknife-annotation.iml" filepath="$PROJECT_DIR$/butterknife-annotation/butterknife-annotation.iml" />
       <module fileurl="file://$PROJECT_DIR$/butterknife-compiler/butterknife-compiler.iml" filepath="$PROJECT_DIR$/butterknife-compiler/butterknife-compiler.iml" />
       <module fileurl="file://$PROJECT_DIR$/testapp/testapp.iml" filepath="$PROJECT_DIR$/testapp/testapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weather/weather.iml" filepath="$PROJECT_DIR$/weather/weather.iml" />
     </modules>
   </component>
 </project>

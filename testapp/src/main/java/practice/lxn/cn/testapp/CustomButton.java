@@ -38,6 +38,9 @@ public class CustomButton extends Button {
 
     @Override
     public boolean performClick() {
+        invalidate();
+        postInvalidate();
+        requestLayout();
         return super.performClick();
     }
 }

@@ -3,15 +3,13 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
 
-
-
     defaultConfig {
         applicationId "practice.lxn.cn.testapp"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -23,6 +21,16 @@ android {
         }
     }
 
+//    productFlavors {
+//        // 定义不同的flavor
+//        dev{
+//            minSdkVersion 21
+//        }
+//        pro{
+//            // APP实际的minSdkVersion
+//            minSdkVersion 14
+//        }
+//    }
 }
 
 dependencies {
@@ -35,4 +43,7 @@ dependencies {
     implementation project(':butterknife-annotation')
     //指定处理注解的注解处理器
     annotationProcessor project(':butterknife-compiler')
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.github.moduth:blockcanary-android:1.2.1'
+    implementation 'com.android.support:multidex:1.0.0'
 }

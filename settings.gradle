@@ -1,1 +1,1 @@
-include ':app', ':testapp', ':butterknife-annotation', ':butterknife-compiler'
+include ':app', ':testapp', ':butterknife-annotation', ':butterknife-compiler', ':weather'
