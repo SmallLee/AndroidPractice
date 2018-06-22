@@ -4,27 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".TestFragmentActivity"
     android:orientation="vertical"
     >
-
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"
-        android:onClick="test"
-         />
+        android:text="FragmentOne"
+        android:onClick="one"
+        />
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="fix"
-        android:onClick="fix"
+        android:text="FragmentTwo"
+        android:onClick="two"
         />
     <FrameLayout
         android:id="@+id/fl_container"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="#00ee00"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:background="#00ff00"
         ></FrameLayout>
-
 </LinearLayout>

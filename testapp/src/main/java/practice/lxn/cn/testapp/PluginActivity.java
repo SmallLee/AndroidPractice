@@ -48,7 +48,7 @@ public class PluginActivity extends AppCompatActivity {
             try {
                 AssetManager assetManager = PluginResource.getPluginAssetManager(apkFile);
                 PluginResource pluginResources = PluginResource.getPluginResources(getResources(), assetManager);
-                DexClassLoader loader = new DexClassLoader(apkFile.getAbsolutePath(),getDir(PLUGIN_NAME,MODE_PRIVATE).getAbsolutePath(),null,getClassLoader());
+                DexClassLoader loader = new DexClassLoader(apkFile.getAbsolutePath(),getDir("plugin",MODE_PRIVATE).getAbsolutePath(),null,getClassLoader());
                 Class<?> loadClass = loader.loadClass(PACKAGE_NAME + ".R$drawable");
                 Field[] declaredFields = loadClass.getDeclaredFields();
                 for (Field field : declaredFields) {
