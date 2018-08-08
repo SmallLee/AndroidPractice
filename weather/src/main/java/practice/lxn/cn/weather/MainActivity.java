@@ -1,8 +1,11 @@
 package practice.lxn.cn.weather;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,6 +13,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import fragment.FragmentOne;
 import practice.lxn.cn.weather.test.FixUtil;
 import practice.lxn.cn.weather.test.TestCaculate;
 
@@ -21,6 +25,10 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fl_container,
+                    FragmentOne.newInstance("haha")).commit();
+        }
     }
 
     public void test(View view) {
@@ -48,6 +56,29 @@ public class MainActivity extends FragmentActivity {
         } catch (Exception e) {
             Toast.makeText(this, "修复失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
+        }
+    }
+
+
+    public void start(View view) {
+        Intent intent = new Intent(this,ThirdActivity.class);
+        double aDouble = Double.parseDouble("23.2");
+        Toast.makeText(this, aDouble +"", Toast.LENGTH_SHORT).show();
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivityForResult(intent,100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Toast.makeText(this, "" + resultCode, Toast.LENGTH_SHORT).show();
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: requestCode" + requestCode);
+        Log.d(TAG, "onActivityResult: resultCode" + resultCode);
+        if (requestCode == 100) {
+            int age = data.getIntExtra("age", 0);
+            Toast.makeText(this, "age " + age, Toast.LENGTH_SHORT).show();
+            SparseArray<String> sparseArray = new SparseArray<>();
+
         }
     }
 }
