@@ -18,7 +18,12 @@ public class TestBSTree {
 //        System.out.println("=====最小值" + bsTree.minNode());//2
 //        System.out.println("=====最大值" + bsTree.maxNode());//8
 //        System.out.println("search "+ bsTree.iterativeSearch(2));
-        System.out.println(bsTree.preNode(new BSTree<Integer>().new BSTNode<>(4,null,null,null)));
+        // 查找前驱结点
+        BSTree<Integer>.BSTNode<Integer> node = bsTree.search(3);
+//        System.out.println("前驱节点" + bsTree.preNode(node));
+        System.out.println("后继节点" + bsTree.postNode(node));
+        System.out.println("后继节点2" + bsTree.postNode2(node));
+        bsTree.inOrder();
         System.out.println("=====树的详细信息");
         bsTree.print(bsTree.mRoot,bsTree.mRoot.key,-1);
     }
