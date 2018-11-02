@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<practice.lxn.cn.androidpractice.view.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    sothree:umanoPanelHeight="68dp"
+    sothree:umanoShadowHeight="0dp"
+    sothree:umanoParallaxOffset="0dp"
+    sothree:umanoDragView="@+id/dragView"
+    sothree:umanoOverlay="false"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确认下单"
+            />
+    </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/dragView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#0000ff">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下单view"
+                android:layout_gravity="bottom"
+                />
+        </FrameLayout>
+</practice.lxn.cn.androidpractice.view.SlidingUpPanelLayout>
