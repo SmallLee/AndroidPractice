@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<practice.lxn.cn.androidpractice.view.CustomLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="match_parent"
     tools:context=".activity.TouchActivity"
-    android:background="#00ff00"
     >
-    <practice.lxn.cn.androidpractice.view.CustomButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="我是Button"
-        />
-</practice.lxn.cn.androidpractice.view.CustomLinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff0000"
+        >
+
+    </RelativeLayout>
+    <practice.lxn.cn.androidpractice.view.HorizontalScrollLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="代驾View"
+            android:background="#00ff00"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="车生活View"
+            android:background="#0000ff"
+            />
+    </practice.lxn.cn.androidpractice.view.HorizontalScrollLayout>
+</RelativeLayout>

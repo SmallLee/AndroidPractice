@@ -43,22 +43,28 @@
         <activity android:name=".activity.WebJsActivity" />
         <activity android:name=".activity.ThreadActivity" />
         <activity android:name=".activity.RetainActivity" />
-        <activity android:name=".activity.TimeActivity"></activity>
+        <activity android:name=".activity.TimeActivity" />
         <activity android:name=".activity.OrderActivity" />
         <activity android:name=".activity.PaymentActivity" />
-        <activity android:name=".activity.SubmitOrderActivity">
+        <activity android:name=".activity.ViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TouchActivity"></activity>
-        <receiver android:name=".MyReceiver" android:exported="false">
+        <activity android:name=".activity.SubmitOrderActivity" />
+
+        <receiver
+            android:name=".MyReceiver"
+            android:exported="false">
             <intent-filter>
-                <action android:name="ACTION_CLOCK"/>
+                <action android:name="ACTION_CLOCK" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".com.test.study.MainActivity" />
+        <activity android:name=".activity.TouchActivity" />
     </application>
 
 </manifest>

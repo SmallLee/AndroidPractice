@@ -1,5 +1,5 @@
 package practice.lxn.cn.androidpractice.activity;
-
+// 空行
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,8 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import practice.lxn.cn.androidpractice.R;
-
-
+// 空行
 public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
     private SharedPreferences sp;
