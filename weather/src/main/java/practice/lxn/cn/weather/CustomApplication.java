@@ -16,4 +16,5 @@ public class CustomApplication extends MultiDexApplication {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
 }

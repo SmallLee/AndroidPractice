@@ -1,19 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+
+    <practice.lxn.cn.androidpractice.view.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/sliding_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="轮播图"
-        android:background="#ffff00"
-        android:gravity="center"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="首汽约车"
-        android:background="#9e9e9e"
-        android:layout_alignParentBottom="true"
-        />
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoClipPanel="false"
+        sothree:umanoDragView="@+id/llview"
+        sothree:umanoOverlay="true"
+        sothree:umanoPanelHeight="150dp"
+        sothree:umanoParallaxOffset="0dp"
+        sothree:umanoShadowHeight="0dp"
+        tools:context=".activity.TouchActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#ffff00"
+            android:gravity="center"
+            android:text="轮播图" />
+
+        <LinearLayout
+            android:id="@+id/llview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_alignParentBottom="true"
+                android:background="#9e9e9e"
+                android:text="首汽约车" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="首汽与汽车增值服务"
+                android:background="@color/color_FCFDFF"
+                />
+        </LinearLayout>
+    </practice.lxn.cn.androidpractice.view.SlidingUpPanelLayout>
 </RelativeLayout>

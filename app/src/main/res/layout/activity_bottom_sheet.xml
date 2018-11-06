@@ -4,23 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThirdActivity"
+    tools:context=".activity.BottomSheetActivity"
     android:orientation="vertical"
     >
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="content"
-        />
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
     <Button
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_show"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="test"
-        android:text="测试"
+        android:text="展示"
+        />
+    <Button
+        android:id="@+id/btn_hide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="隐藏"
         />
 </LinearLayout>

@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import practice.lxn.cn.androidpractice.R;
-import practice.lxn.cn.androidpractice.util.SizeUtils;
 
 
 public class SlidingUpPanelLayout extends ViewGroup {
@@ -243,10 +242,10 @@ public class SlidingUpPanelLayout extends ViewGroup {
      * instance state save/restore.
      */
     private boolean mFirstLayout = true;
-    // 阴影和顶部的距离
-    private int mSlideTopPadding;
 
     private final Rect mTmpRect = new Rect();
+    // 手指在屏幕上的位置
+    private float mMotionEventY;
 
     /**
      * Listener for monitoring events about sliding panes.
@@ -446,11 +445,11 @@ public class SlidingUpPanelLayout extends ViewGroup {
         if (!mFirstLayout) {
             requestLayout();
         }
-        if (getPanelState() == PanelState.COLLAPSED) {
+//        if (getPanelState() == PanelState.COLLAPSED) {
             smoothToBottom();
             invalidate();
-            return;
-        }
+//            return;
+//        }
     }
 
 
@@ -925,11 +924,12 @@ public class SlidingUpPanelLayout extends ViewGroup {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         // If the scrollable view is handling touch, never intercept
-        if (mIsScrollableViewHandlingTouch || !isTouchEnabled()) {
+        boolean isOnMapView = isOnMapView(mDragView,(int) mMotionEventY);
+        System.out.println("===========on" + isOnMapView);
+        if (mIsScrollableViewHandlingTouch || !isTouchEnabled() || isOnMapView) {
             mDragHelper.abort();
             return false;
         }
-
         final int action = MotionEventCompat.getActionMasked(ev);
         final float x = ev.getX();
         final float y = ev.getY();
@@ -989,7 +989,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if (!isEnabled() || !isTouchEnabled()) {
+        if (!isEnabled() || !isTouchEnabled() || isOnMapView(mDragView,(int) mMotionEventY)) {
             return super.onTouchEvent(ev);
         }
         try {
@@ -1004,14 +1004,15 @@ public class SlidingUpPanelLayout extends ViewGroup {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         final int action = MotionEventCompat.getActionMasked(ev);
-
-        if (!isEnabled() || !isTouchEnabled() || (mIsUnableToDrag && action != MotionEvent.ACTION_DOWN)) {
+        final float x = ev.getX();
+        final float y = ev.getY();
+        mMotionEventY = y;
+        boolean isOnMapView = isOnMapView(mDragView,(int) mMotionEventY);
+        System.out.println("===========dis" + isOnMapView);
+        if (!isEnabled() || !isTouchEnabled() || (mIsUnableToDrag && action != MotionEvent.ACTION_DOWN) || isOnMapView) {
             mDragHelper.abort();
             return super.dispatchTouchEvent(ev);
         }
-
-        final float x = ev.getX();
-        final float y = ev.getY();
 
         if (action == MotionEvent.ACTION_DOWN) {
             mIsScrollableViewHandlingTouch = false;
@@ -1093,6 +1094,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     }
 
     private boolean isViewUnder(View view, int x, int y) {
+        Log.d(TAG, "isViewUnder: " + x + "---" + y);
         if (view == null) return false;
         int[] viewLocation = new int[2];
         view.getLocationOnScreen(viewLocation);
@@ -1100,9 +1102,19 @@ public class SlidingUpPanelLayout extends ViewGroup {
         this.getLocationOnScreen(parentLocation);
         int screenX = parentLocation[0] + x;
         int screenY = parentLocation[1] + y;
-        //处理有发现图标情况下，点击阴影部分和点击发现图标的事件冲突问题
-        return screenX >= viewLocation[0] && screenX < viewLocation[0] + view.getWidth() && // 加15dp是为了增大阴影之外的点击区域
-                screenY >= viewLocation[1]+disCoveryHeight && screenY < viewLocation[1] + view.getHeight() || screenY < mSlideTopPadding + SizeUtils.dp2px(getContext(),15);
+        return screenX >= viewLocation[0] && screenX < viewLocation[0] + view.getWidth() &&
+                screenY >= viewLocation[1] && screenY < viewLocation[1] + view.getHeight();
+    }
+
+    // 是否触摸的在地图所在区域
+    private boolean isOnMapView(View view,int y) {
+        if (view == null) return false;
+        int[] viewLocation = new int[2];
+        view.getLocationOnScreen(viewLocation);
+        int[] parentLocation = new int[2];
+        this.getLocationOnScreen(parentLocation);
+        int screenY = parentLocation[1] + y;
+        return y >= 300 && screenY < viewLocation[1];
     }
 
     /*
@@ -1123,7 +1135,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
     private float computeSlideOffset(int topPosition) {
         // Compute the panel top position if the panel is collapsed (offset 0)
         final int topBoundCollapsed = computePanelTopPosition(0);
-
+        System.out.println("======topBoundCollapsed" + topBoundCollapsed);
         // Determine the new slide offset based on the collapsed top position and the new required
         // top position
         float slideOffset;
@@ -1258,9 +1270,9 @@ public class SlidingUpPanelLayout extends ViewGroup {
             if (mClipPanel) {
                 canvas.clipRect(mTmpRect);
             }
-            if (mIsSlidingUp) {
-                mTmpRect.top = mSlideTopPadding;
-            }
+//            if (mIsSlidingUp) {
+//                mTmpRect.top = mSlideTopPadding;
+//            }
 
             result = super.drawChild(canvas, child, drawingTime);
 

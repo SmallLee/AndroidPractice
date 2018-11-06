@@ -21,4 +21,7 @@
         <attr name="umanoScrollInterpolator" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="SlideBottomLayout">
+        <attr name="handler_height" format="dimension"></attr>
+    </declare-styleable>
 </resources>

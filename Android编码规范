@@ -38,7 +38,8 @@ Activity注释:File-Settings-Live Templates--加号-Live Templates
  三.源文件结构
  package语句(不换行)
  import语句(不换行，不要使用通配符)
- 一个顶级类(只有一个)以上每个部分之间用一个空行隔开
+ 一个顶级类(只有一个)
+ 以上每个部分之间用一个空行隔开
  类似下面：
  package practice.lxn.cn.testapp;
 
@@ -179,7 +180,7 @@ Prev 一组变量中的上一个
 Cur 一组变量中的当前变量。
 
 集合添加如下后缀：List、Map、Set
-   private List<String> sNameList = new ArrayList();
+   private List<String> mNameList = new ArrayList();
 数组添加如下后缀：Arr
     private String[] sAgeArr = {"1","2"};
 

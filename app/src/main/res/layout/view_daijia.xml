@@ -1,51 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<practice.lxn.cn.androidpractice.view.SlidingUpPanelLayout
-    android:id="@+id/sliding_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.TouchActivity"
-    android:gravity="bottom"
-    sothree:umanoDragView="@+id/dragview"
-    sothree:umanoOverlay="true"
-    sothree:umanoPanelHeight="50dp"
-    sothree:umanoParallaxOffset="0dp"
-    sothree:umanoShadowHeight="0dp"
-    sothree:umanoClipPanel="false">
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <TextView
+    android:layout_height="wrap_content">
+
+    <practice.lxn.cn.androidpractice.view.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/sliding_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#00ff00"
-        android:text="广告"
-        android:clickable="true"
-        />
-</RelativeLayout>
-    <LinearLayout
-        android:id="@+id/dragview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-    <TextView
-        android:id="@+id/submitview"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:text="下单View"
-        android:background="#9e9e9e"
-        android:layout_alignParentBottom="true"
-        android:clickable="true"
-        />
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        sothree:umanoClipPanel="false"
+        sothree:umanoDragView="@+id/bottomview"
+        sothree:umanoOverlay="true"
+        sothree:umanoPanelHeight="100dp"
+        sothree:umanoParallaxOffset="0dp"
+        sothree:umanoShadowHeight="0dp"
+        tools:context=".activity.TouchActivity">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:background="#00ff00"
+            android:clickable="true"
+            android:text="广告" />
+        <LinearLayout
+            android:id="@+id/bottomview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#00ffff"
+            android:text="下单"
+            android:textSize="28sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#ff00ff"
             android:text="增值服务"
-            />
-    </LinearLayout>
-</practice.lxn.cn.androidpractice.view.SlidingUpPanelLayout>
+            android:textSize="28sp" />
+        </LinearLayout>
+    </practice.lxn.cn.androidpractice.view.SlidingUpPanelLayout>
+</RelativeLayout>
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#00ff00"
+        android:text="下单View"
+        android:textColor="#000000"
+        android:textSize="28sp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#ff00ff"
+        android:text="增值服务View"
+        android:textColor="#000000"
+        android:textSize="28sp"
+        />
+</LinearLayout>

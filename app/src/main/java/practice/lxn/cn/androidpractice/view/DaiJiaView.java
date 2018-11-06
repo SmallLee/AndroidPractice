@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import practice.lxn.cn.androidpractice.R;
@@ -24,6 +25,18 @@ public class DaiJiaView extends FrameLayout {
     }
 
     public void initView(Context context) {
-        LayoutInflater.from(context).inflate(R.layout.view_daijia, this);
+        View daijiaView = LayoutInflater.from(context).inflate(R.layout.view_daijia, this);
+        SlidingUpPanelLayout slidingLayout = daijiaView.findViewById(R.id.sliding_layout);
+        slidingLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+
+            }
+
+            @Override
+            public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
+
+            }
+        });
     }
 }

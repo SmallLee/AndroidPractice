@@ -53,7 +53,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SubmitOrderActivity" />
 
         <receiver
             android:name=".MyReceiver"
@@ -65,6 +64,8 @@
 
         <activity android:name=".com.test.study.MainActivity" />
         <activity android:name=".activity.TouchActivity" />
+        <activity android:name=".activity.SubmitOrderActivity" />
+        <activity android:name=".activity.BottomSheetActivity"></activity>
     </application>
 
 </manifest>

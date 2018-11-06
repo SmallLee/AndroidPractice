@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply from: "${project.rootDir}/common.gradle"
-apply plugin:'newlens'
 android {
     compileSdkVersion project.ext.compileSdkVersion
 
@@ -8,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "practice.lxn.cn.weather"
-        minSdkVersion 15
+        minSdkVersion 24
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -45,4 +44,5 @@ dependencies {
     implementation 'com.networkbench.newlens.agent.android:agent-gradle-plugin:2.8.4'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.sothree.slidinguppanel:library:3.3.0'
 }
