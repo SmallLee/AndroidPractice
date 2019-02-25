@@ -6,11 +6,20 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginTop="50dp"
-    android:background="@drawable/table_background"
+    android:background="#00ff00"
     >
-   <TextView
+   <com.flyco.tablayout.SlidingTabLayout
+       android:id="@+id/tablayout"
        android:layout_width="match_parent"
-       android:layout_height="100dp"
-       android:background="@drawable/shade_tab_view"
+       android:layout_height="33dp"
+       app:tl_indicator_width="26dp"
+       app:tl_indicator_height="8dp"
+       app:tl_indicator_color="#262a32"
+       app:tl_textSelectColor="#19191A"
+       app:tl_iconVisible="false"
+       app:tl_textsize="16sp"
+       app:tl_indicator_bounce_enable="true"
+       app:tl_indicator_anim_duration="100"
+       app:tl_textUnselectColor="#19191A"
        />
 </LinearLayout>

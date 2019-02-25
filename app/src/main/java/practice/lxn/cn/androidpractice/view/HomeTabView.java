@@ -2,11 +2,13 @@ package practice.lxn.cn.androidpractice.view;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
 
-import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import practice.lxn.cn.androidpractice.R;
@@ -17,7 +19,8 @@ import practice.lxn.cn.androidpractice.R;
  */
 
 public class HomeTabView extends LinearLayout implements OnTabSelectListener {
-    private CommonTabLayout mTabLayout;
+//    private CommonTabLayout mTabLayout;
+    private SlidingTabLayout tabLayout;
 
     public HomeTabView(Context context) {
         super(context);
@@ -25,7 +28,16 @@ public class HomeTabView extends LinearLayout implements OnTabSelectListener {
 
     public HomeTabView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        LayoutInflater.from(context).inflate(R.layout.view_home_tab,this);
+        View tabView = LayoutInflater.from(context).inflate(R.layout.view_home_tab,this);
+        tabLayout = tabView.findViewById(R.id.tablayout);
+    }
+
+    public void setViewePager(ViewPager viewePager){
+        tabLayout.setViewPager(viewePager);
+    }
+
+    public void setTabSpaceEquals(boolean equal) {
+        tabLayout.setTabSpaceEqual(equal);
     }
 
     @Override

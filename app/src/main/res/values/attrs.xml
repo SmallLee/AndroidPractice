@@ -24,4 +24,8 @@
     <declare-styleable name="SlideBottomLayout">
         <attr name="handler_height" format="dimension"></attr>
     </declare-styleable>
+
+    <declare-styleable name="HorizontalScrollLayout">
+        <attr name="animate" format="boolean"/>
+    </declare-styleable>
 </resources>
